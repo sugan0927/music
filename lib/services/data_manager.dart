@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:hive/hive.dart';
 import 'package:musify/services/ext_storage.dart';
-import 'package:permission_handler/permission_handler.dart';
 
 void addOrUpdateData(
   String category,
@@ -45,17 +44,9 @@ Future backupData() async {
 
   for (int i = 0; i < boxNames.length; i++) {
     await Hive.openBox(boxNames[i].toString());
-    try {
-      await File(Hive.box(boxNames[i].toString()).path!)
-          .copy('$dlPath/${boxNames[i]}Data.hive');
-    } catch (e) {
-      await [
-        Permission.manageExternalStorage,
-      ].request();
-      await File(Hive.box(boxNames[i].toString()).path!)
-          .copy('$dlPath/${boxNames[i]}Data.hive');
-      return 'Permissions problem, if you already gave requested permission, Backup data again!';
-    }
+
+    await File(Hive.box(boxNames[i].toString()).path!)
+        .copy('$dlPath/${boxNames[i]}Data.hive');
   }
   return 'Backuped Successfully!';
 }
@@ -67,16 +58,10 @@ Future restoreData() async {
 
   for (int i = 0; i < boxNames.length; i++) {
     await Hive.openBox(boxNames[i].toString());
-    try {
-      final Box box = await Hive.openBox(boxNames[i].toString());
-      final boxPath = box.path;
-      await File('${uplPath!}/${boxNames[i]}Data.hive').copy(boxPath!);
-    } catch (e) {
-      await [
-        Permission.manageExternalStorage,
-      ].request();
-      return 'Permissions problem, if you already gave requested permission, Restore data again!';
-    }
+
+    final Box box = await Hive.openBox(boxNames[i].toString());
+    final boxPath = box.path;
+    await File('${uplPath!}/${boxNames[i]}Data.hive').copy(boxPath!);
   }
 
   return 'Restored Successfully!';

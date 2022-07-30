@@ -35,7 +35,7 @@ class _HomePageState extends State<HomePage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             FutureBuilder(
-              future: getPlaylists(5),
+              future: getPlaylists(4),
               builder: (context, data) {
                 return data.hasData
                     ? Wrap(
@@ -123,6 +123,7 @@ class _HomePageState extends State<HomePage> {
                               itemBuilder: (context, index) {
                                 return SongBar(
                                   (data as dynamic).data[index],
+                                  false,
                                 );
                               },
                             ),
@@ -175,7 +176,7 @@ class CubeContainer extends StatelessWidget {
           children: [
             SizedBox(
               height: size.height / 4.15,
-              width: size.width / 1.9,
+              width: size.width / 5.15,
               child: Card(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8),

@@ -57,71 +57,73 @@ class _SearchPageState extends State<SearchPage> {
         padding: const EdgeInsets.all(12),
         child: Column(
           children: <Widget>[
-            const Padding(padding: EdgeInsets.only(bottom: 20)),
-            TextField(
-              onSubmitted: (String value) {
-                search();
-                FocusManager.instance.primaryFocus?.unfocus();
-              },
-              controller: _searchBar,
-              focusNode: _inputNode,
-              style: TextStyle(
-                fontSize: 16,
-                color: accent,
-              ),
-              cursorColor: Colors.green[50],
-              decoration: InputDecoration(
-                fillColor: bgLight,
-                filled: true,
-                enabledBorder: const OutlineInputBorder(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(100),
-                  ),
-                  borderSide: BorderSide(
-                    color: Color(0xff263238),
-                  ),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: const BorderRadius.all(
-                    Radius.circular(100),
-                  ),
-                  borderSide: BorderSide(color: accent),
-                ),
-                suffixIcon: ValueListenableBuilder<bool>(
-                    valueListenable: _fetchingSongs,
-                    builder: (_, value, __) {
-                      if (value == true) {
-                        return IconButton(
-                            icon: const SizedBox(
-                                height: 18, width: 18, child: Spinner()),
-                            color: accent,
-                            onPressed: () {
-                              search();
-                              FocusManager.instance.primaryFocus?.unfocus();
-                            });
-                      } else {
-                        return IconButton(
-                            icon: Icon(
-                              Icons.search,
-                              color: accent,
-                            ),
-                            color: accent,
-                            onPressed: () {
-                              search();
-                              FocusManager.instance.primaryFocus?.unfocus();
-                            });
-                      }
-                    }),
-                border: InputBorder.none,
-                hintText: '${AppLocalizations.of(context)!.search}...',
-                hintStyle: TextStyle(
+            Padding(
+              padding: const EdgeInsets.only(bottom: 20, right: 70, left: 70),
+              child: TextField(
+                onSubmitted: (String value) {
+                  search();
+                  FocusManager.instance.primaryFocus?.unfocus();
+                },
+                controller: _searchBar,
+                focusNode: _inputNode,
+                style: TextStyle(
+                  fontSize: 16,
                   color: accent,
                 ),
-                contentPadding: const EdgeInsets.only(
-                  left: 18,
-                  right: 20,
-                  top: 14,
-                  bottom: 14,
+                cursorColor: Colors.green[50],
+                decoration: InputDecoration(
+                  fillColor: bgLight,
+                  filled: true,
+                  enabledBorder: const OutlineInputBorder(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(100),
+                    ),
+                    borderSide: BorderSide(
+                      color: Color(0xff263238),
+                    ),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: const BorderRadius.all(
+                      Radius.circular(100),
+                    ),
+                    borderSide: BorderSide(color: accent),
+                  ),
+                  suffixIcon: ValueListenableBuilder<bool>(
+                      valueListenable: _fetchingSongs,
+                      builder: (_, value, __) {
+                        if (value == true) {
+                          return IconButton(
+                              icon: const SizedBox(
+                                  height: 18, width: 18, child: Spinner()),
+                              color: accent,
+                              onPressed: () {
+                                search();
+                                FocusManager.instance.primaryFocus?.unfocus();
+                              });
+                        } else {
+                          return IconButton(
+                              icon: Icon(
+                                Icons.search,
+                                color: accent,
+                              ),
+                              color: accent,
+                              onPressed: () {
+                                search();
+                                FocusManager.instance.primaryFocus?.unfocus();
+                              });
+                        }
+                      }),
+                  border: InputBorder.none,
+                  hintText: '${AppLocalizations.of(context)!.search}...',
+                  hintStyle: TextStyle(
+                    color: accent,
+                  ),
+                  contentPadding: const EdgeInsets.only(
+                    left: 18,
+                    right: 20,
+                    top: 14,
+                    bottom: 14,
+                  ),
                 ),
               ),
             ),
@@ -135,8 +137,12 @@ class _SearchPageState extends State<SearchPage> {
                 itemCount: searchedList.length,
                 itemBuilder: (BuildContext ctxt, int index) {
                   return Padding(
-                    padding: const EdgeInsets.only(top: 5, bottom: 5),
-                    child: SongBar(searchedList[index]),
+                    padding: const EdgeInsets.only(
+                        top: 5, bottom: 5, left: 50, right: 50),
+                    child: SongBar(
+                      searchedList[index],
+                      false,
+                    ),
                   );
                 },
               )
@@ -149,7 +155,8 @@ class _SearchPageState extends State<SearchPage> {
                 itemCount: searchHistory.length,
                 itemBuilder: (BuildContext ctxt, int index) {
                   return Padding(
-                    padding: const EdgeInsets.only(top: 8, bottom: 6),
+                    padding: const EdgeInsets.only(
+                        top: 8, bottom: 6, left: 60, right: 60),
                     child: Card(
                       color: bgLight,
                       shape: RoundedRectangleBorder(

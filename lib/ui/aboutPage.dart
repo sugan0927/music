@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:musify/helper/version.dart';
+import 'package:musify/main.dart';
 import 'package:musify/style/appColors.dart';
 
 class AboutPage extends StatelessWidget {
@@ -71,7 +71,8 @@ class AboutCards extends StatelessWidget {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.only(top: 8, left: 8, right: 8, bottom: 6),
+          padding:
+              const EdgeInsets.only(top: 8, left: 50, right: 50, bottom: 6),
           child: Card(
             color: bgLight,
             shape: RoundedRectangleBorder(

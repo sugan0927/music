@@ -3,9 +3,6 @@
   "accentChangeMsg": "Accent color has been changed",
   "accentColor": "Accent color",
   "add": "ajouter",
-  "appUpdateAvailableAndDownloading": "App update is available and downloading",
-  "appUpdateIsAvailable": "App update is available",
-  "appUpdateIsNotAvailable": "App update is not available",
   "audioFileType": "Audio File Extension",
   "audioFileTypeMsg": "Audio File Type has been changed",
   "backupUserData": "Backup user data",
@@ -13,10 +10,8 @@
   "cacheMsg": "Cache cleared",
   "clearCache": "Clear cache",
   "clearSearchHistory": "Clear Search History",
-  "downloadAppUpdate": "Download app update",
   "language": "Langue",
   "languageMsg": "Language has been changed",
-  "localSongs": "Local songs",
   "lyrics": "Paroles",
   "lyricsNotAvailable": "No lyrics available ;(",
   "nowPlaying": "Now playing",
@@ -33,7 +28,6 @@
   "suggestedPlaylists": "Suggested playlists",
   "userLikedSongs": "User liked songs",
   "userPlaylists": "User playlists",
-  "yourDownloadedSongsHere": "Your downloaded songs here",
   "yourFavoriteSongsHere": "Your favorite songs here",
   "youtubePlaylistID": "Youtube playlist ID"
 }

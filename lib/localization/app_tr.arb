@@ -3,9 +3,6 @@
   "accentChangeMsg": "Vurgu rengi değiştirildi",
   "accentColor": "vurgu rengi",
   "add": "Ekle",
-  "appUpdateAvailableAndDownloading": "Uygulama güncellemesi mevcut ve indiriliyor",
-  "appUpdateIsAvailable": "Uygulama güncellemesi mevcut",
-  "appUpdateIsNotAvailable": "Uygulama güncellemesi mevcut değil",
   "audioFileType": "Ses Dosyası Uzantısı",
   "audioFileTypeMsg": "Ses Dosyası Türü değiştirildi",
   "backupUserData": "Yedekleme kullanıcı verileri",
@@ -13,10 +10,8 @@
   "cacheMsg": "önbellek temizlendi",
   "clearCache": "Önbelleği temizle",
   "clearSearchHistory": "Arama geçmişini temizle",
-  "downloadAppUpdate": "Uygulama güncellemesini indirin",
   "language": "Dil",
   "languageMsg": "Dil değiştirildi",
-  "localSongs": "Yerel şarkılar",
   "lyrics": "şarkı sözleri",
   "lyricsNotAvailable": "Şarkı sözü yok ;(",
   "nowPlaying": "Şimdi oynuyor",
@@ -33,7 +28,6 @@
   "suggestedPlaylists": "Önerilen oynatma listeleri",
   "userLikedSongs": "Kullanıcının beğendiği şarkılar",
   "userPlaylists": "Kullanıcı oynatma listeleri",
-  "yourDownloadedSongsHere": "İndirdiğiniz şarkılar burada",
   "yourFavoriteSongsHere": "En sevdiğin şarkılar burada",
   "youtubePlaylistID": "Youtube oynatma listesi ID"
 }

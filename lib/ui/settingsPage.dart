@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:musify/helper/version.dart';
 import 'package:musify/main.dart';
 import 'package:musify/services/audio_manager.dart';
 import 'package:musify/services/data_manager.dart';
@@ -44,7 +42,8 @@ class SettingsCards extends StatelessWidget {
     return Column(
       children: <Widget>[
         Padding(
-          padding: const EdgeInsets.only(top: 8, left: 8, right: 8, bottom: 6),
+          padding:
+              const EdgeInsets.only(top: 8, left: 60, right: 60, bottom: 6),
           child: Card(
             color: bgLight,
             shape: RoundedRectangleBorder(
@@ -112,7 +111,7 @@ class SettingsCards extends StatelessWidget {
                         child: GridView.builder(
                           gridDelegate:
                               const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 3,
+                            crossAxisCount: 6,
                           ),
                           shrinkWrap: true,
                           physics: const BouncingScrollPhysics(),
@@ -137,18 +136,7 @@ class SettingsCards extends StatelessWidget {
                                         );
                                         MyApp.setAccentColor(
                                             context, Color(colors[index]));
-                                        Fluttertoast.showToast(
-                                          backgroundColor: accent,
-                                          textColor:
-                                              accent != const Color(0xFFFFFFFF)
-                                                  ? Colors.white
-                                                  : Colors.black,
-                                          msg: AppLocalizations.of(context)!
-                                              .accentChangeMsg,
-                                          toastLength: Toast.LENGTH_SHORT,
-                                          gravity: ToastGravity.BOTTOM,
-                                          fontSize: 14,
-                                        );
+
                                         Navigator.pop(context);
                                       },
                                       child: Material(
@@ -178,7 +166,8 @@ class SettingsCards extends StatelessWidget {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.only(top: 8, left: 8, right: 8, bottom: 6),
+          padding:
+              const EdgeInsets.only(top: 8, left: 60, right: 60, bottom: 6),
           child: Card(
             color: bgLight,
             shape: RoundedRectangleBorder(
@@ -270,18 +259,6 @@ class SettingsCards extends StatelessWidget {
                                       ),
                                     );
 
-                                    Fluttertoast.showToast(
-                                      backgroundColor: accent,
-                                      textColor:
-                                          accent != const Color(0xFFFFFFFF)
-                                              ? Colors.white
-                                              : Colors.black,
-                                      msg: AppLocalizations.of(context)!
-                                          .languageMsg,
-                                      toastLength: Toast.LENGTH_SHORT,
-                                      gravity: ToastGravity.BOTTOM,
-                                      fontSize: 14,
-                                    );
                                     Navigator.pop(context);
                                   },
                                 ),
@@ -298,7 +275,8 @@ class SettingsCards extends StatelessWidget {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.only(top: 8, left: 8, right: 8, bottom: 6),
+          padding:
+              const EdgeInsets.only(top: 8, left: 60, right: 60, bottom: 6),
           child: Card(
             color: bgLight,
             shape: RoundedRectangleBorder(
@@ -311,24 +289,13 @@ class SettingsCards extends StatelessWidget {
                 AppLocalizations.of(context)!.clearCache,
                 style: TextStyle(color: accent),
               ),
-              onTap: () {
-                clearCache();
-                Fluttertoast.showToast(
-                  backgroundColor: accent,
-                  textColor: accent != const Color(0xFFFFFFFF)
-                      ? Colors.white
-                      : Colors.black,
-                  msg: '${AppLocalizations.of(context)!.cacheMsg}!',
-                  toastLength: Toast.LENGTH_SHORT,
-                  gravity: ToastGravity.BOTTOM,
-                  fontSize: 14,
-                );
-              },
+              onTap: clearCache,
             ),
           ),
         ),
         Padding(
-          padding: const EdgeInsets.only(top: 8, left: 8, right: 8, bottom: 6),
+          padding:
+              const EdgeInsets.only(top: 8, left: 60, right: 60, bottom: 6),
           child: Card(
             color: bgLight,
             shape: RoundedRectangleBorder(
@@ -344,22 +311,13 @@ class SettingsCards extends StatelessWidget {
               onTap: () {
                 searchHistory = [];
                 deleteData('user', 'searchHistory');
-                Fluttertoast.showToast(
-                  backgroundColor: accent,
-                  textColor: accent != const Color(0xFFFFFFFF)
-                      ? Colors.white
-                      : Colors.black,
-                  msg: '${AppLocalizations.of(context)!.searchHistoryMsg}!',
-                  toastLength: Toast.LENGTH_SHORT,
-                  gravity: ToastGravity.BOTTOM,
-                  fontSize: 14,
-                );
               },
             ),
           ),
         ),
         Padding(
-          padding: const EdgeInsets.only(top: 8, left: 8, right: 8, bottom: 6),
+          padding:
+              const EdgeInsets.only(top: 8, left: 60, right: 60, bottom: 6),
           child: Card(
             color: bgLight,
             shape: RoundedRectangleBorder(
@@ -384,7 +342,8 @@ class SettingsCards extends StatelessWidget {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.only(top: 8, left: 8, right: 8, bottom: 6),
+          padding:
+              const EdgeInsets.only(top: 8, left: 60, right: 60, bottom: 6),
           child: Card(
             color: bgLight,
             shape: RoundedRectangleBorder(
@@ -408,7 +367,8 @@ class SettingsCards extends StatelessWidget {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.only(top: 8, left: 8, right: 8, bottom: 6),
+          padding:
+              const EdgeInsets.only(top: 8, left: 60, right: 60, bottom: 6),
           child: Card(
             color: bgLight,
             shape: RoundedRectangleBorder(
@@ -421,25 +381,13 @@ class SettingsCards extends StatelessWidget {
                 AppLocalizations.of(context)!.backupUserData,
                 style: TextStyle(color: accent),
               ),
-              onTap: () {
-                backupData().then(
-                  (value) => Fluttertoast.showToast(
-                    backgroundColor: accent,
-                    textColor: accent != const Color(0xFFFFFFFF)
-                        ? Colors.white
-                        : Colors.black,
-                    msg: value.toString(),
-                    toastLength: Toast.LENGTH_SHORT,
-                    gravity: ToastGravity.BOTTOM,
-                    fontSize: 14,
-                  ),
-                );
-              },
+              onTap: backupData,
             ),
           ),
         ),
         Padding(
-          padding: const EdgeInsets.only(top: 8, left: 8, right: 8, bottom: 6),
+          padding:
+              const EdgeInsets.only(top: 8, left: 60, right: 60, bottom: 6),
           child: Card(
             color: bgLight,
             shape: RoundedRectangleBorder(
@@ -452,77 +400,13 @@ class SettingsCards extends StatelessWidget {
                 AppLocalizations.of(context)!.restoreUserData,
                 style: TextStyle(color: accent),
               ),
-              onTap: () {
-                restoreData().then(
-                  (value) => Fluttertoast.showToast(
-                    backgroundColor: accent,
-                    textColor: accent != const Color(0xFFFFFFFF)
-                        ? Colors.white
-                        : Colors.black,
-                    msg: value.toString(),
-                    toastLength: Toast.LENGTH_SHORT,
-                    gravity: ToastGravity.BOTTOM,
-                    fontSize: 14,
-                  ),
-                );
-              },
+              onTap: restoreData,
             ),
           ),
         ),
         Padding(
-          padding: const EdgeInsets.only(top: 8, left: 8, right: 8, bottom: 6),
-          child: Card(
-            color: bgLight,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
-            elevation: 2.3,
-            child: ListTile(
-              leading: Icon(MdiIcons.download, color: accent),
-              title: Text(
-                AppLocalizations.of(context)!.downloadAppUpdate,
-                style: TextStyle(color: accent),
-              ),
-              onTap: () {
-                checkAppUpdates().then(
-                  (available) => {
-                    if (available == true)
-                      {
-                        Fluttertoast.showToast(
-                          msg:
-                              '${AppLocalizations.of(context)!.appUpdateAvailableAndDownloading}!',
-                          toastLength: Toast.LENGTH_SHORT,
-                          gravity: ToastGravity.BOTTOM,
-                          backgroundColor: accent,
-                          textColor: accent != const Color(0xFFFFFFFF)
-                              ? Colors.white
-                              : Colors.black,
-                          fontSize: 14,
-                        ),
-                        downloadAppUpdates()
-                      }
-                    else
-                      {
-                        Fluttertoast.showToast(
-                          msg:
-                              '${AppLocalizations.of(context)!.appUpdateIsNotAvailable}!',
-                          toastLength: Toast.LENGTH_SHORT,
-                          gravity: ToastGravity.BOTTOM,
-                          backgroundColor: accent,
-                          textColor: accent != const Color(0xFFFFFFFF)
-                              ? Colors.white
-                              : Colors.black,
-                          fontSize: 14,
-                        )
-                      }
-                  },
-                );
-              },
-            ),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(top: 8, left: 8, right: 8, bottom: 6),
+          padding:
+              const EdgeInsets.only(top: 8, left: 60, right: 60, bottom: 6),
           child: Card(
             color: bgLight,
             shape: RoundedRectangleBorder(
@@ -582,18 +466,6 @@ class SettingsCards extends StatelessWidget {
                                     prefferedFileExtension.value =
                                         availableFileTypes[index];
 
-                                    Fluttertoast.showToast(
-                                      backgroundColor: accent,
-                                      textColor:
-                                          accent != const Color(0xFFFFFFFF)
-                                              ? Colors.white
-                                              : Colors.black,
-                                      msg: AppLocalizations.of(context)!
-                                          .audioFileTypeMsg,
-                                      toastLength: Toast.LENGTH_SHORT,
-                                      gravity: ToastGravity.BOTTOM,
-                                      fontSize: 14,
-                                    );
                                     Navigator.pop(context);
                                   },
                                 ),
@@ -610,7 +482,8 @@ class SettingsCards extends StatelessWidget {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.only(top: 8, left: 8, right: 8, bottom: 6),
+          padding:
+              const EdgeInsets.only(top: 8, left: 60, right: 60, bottom: 6),
           child: Card(
             color: bgLight,
             shape: RoundedRectangleBorder(

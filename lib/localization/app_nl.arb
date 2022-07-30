@@ -3,9 +3,6 @@
   "accentChangeMsg": "Accentkleur is gewijzigd",
   "accentColor": "Accentkleur",
   "add": "Toevoegen",
-  "appUpdateAvailableAndDownloading": "App-update is beschikbaar en wordt gedownload",
-  "appUpdateIsAvailable": "App-update is beschikbaar",
-  "appUpdateIsNotAvailable": "App-update is niet beschikbaar",
   "audioFileType": "Audiobestandsextensie",
   "audioFileTypeMsg": "Audiobestandstype is gewijzigd",
   "backupUserData": "Backup gebruikersgegevens",
@@ -13,10 +10,8 @@
   "cacheMsg": "Cache gewist",
   "clearCache": "Cache wissen",
   "clearSearchHistory": "Verwijder zoekgeschiedenis",
-  "downloadAppUpdate": "App-update downloaden",
   "language": "Taal",
   "languageMsg": "Taal is gewijzigd",
-  "localSongs": "Lokale nummers",
   "lyrics": "tekst",
   "lyricsNotAvailable": "Geen songtekst beschikbaar ;(",
   "nowPlaying": "Nu aan het spelen",
@@ -33,7 +28,6 @@
   "suggestedPlaylists": "Voorgestelde afspeellijsten",
   "userLikedSongs": "Liedjes die gebruikers leuk vonden",
   "userPlaylists": "Gebruikersafspeellijsten",
-  "yourDownloadedSongsHere": "Uw gedownloade nummers hier",
   "yourFavoriteSongsHere": "Uw favoriete nummers hier",
   "youtubePlaylistID": "Youtube-afspeellijst-ID"
 }

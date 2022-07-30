@@ -1,33 +1,11 @@
 import 'dart:async';
-import 'dart:io';
-
-import 'package:audio_service/audio_service.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hive/hive.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:musify/API/musify.dart';
-import 'package:musify/helper/mediaitem.dart';
-import 'package:musify/main.dart';
-import 'package:musify/services/audio_handler.dart';
-import 'package:musify/services/ext_storage.dart';
-import 'package:musify/style/appColors.dart';
 import 'package:musify/ui/player.dart';
-import 'package:permission_handler/permission_handler.dart';
-import 'package:youtube_explode_dart/youtube_explode_dart.dart';
 
-final _equalizer = AndroidEqualizer();
-final _loudnessEnhancer = AndroidLoudnessEnhancer();
-final _audioHandler = getIt<AudioHandler>();
-
-AudioPlayer? audioPlayer = AudioPlayer(
-  audioPipeline: AudioPipeline(
-    androidAudioEffects: [
-      _loudnessEnhancer,
-      _equalizer,
-    ],
-  ),
-);
+AudioPlayer? audioPlayer = AudioPlayer();
 
 final durationNotifier = ValueNotifier<Duration?>(Duration.zero);
 final buttonNotifier = ValueNotifier<MPlayerState>(MPlayerState.stopped);
@@ -52,78 +30,28 @@ String get positionText =>
 
 bool isMuted = false;
 
-Future<void> downloadSong(dynamic song) async {
-  PermissionStatus status = await Permission.storage.status;
-  if (status.isDenied) {
-    await [
-      Permission.storage,
-      Permission.accessMediaLocation,
-      Permission.mediaLibrary,
-    ].request();
-    status = await Permission.storage.status;
-    if (status.isPermanentlyDenied) {
-      await openAppSettings();
-    }
-  }
-  final filename = song['title']
-          .replaceAll(r'\', '')
-          .replaceAll('/', '')
-          .replaceAll('*', '')
-          .replaceAll('?', '')
-          .replaceAll('"', '')
-          .replaceAll('<', '')
-          .replaceAll('>', '')
-          .replaceAll('|', '') +
-      '.' +
-      prefferedFileExtension.value;
+Future<void>? play() => audioPlayer?.play();
 
-  String filepath = '';
-  final String? dlPath =
-      await ExtStorageProvider.getExtStorage(dirName: 'Musify');
-  try {
-    await File('${dlPath!}/$filename')
-        .create(recursive: true)
-        .then((value) => filepath = value.path);
-  } catch (e) {
-    await [Permission.manageExternalStorage].request();
-    await File('${dlPath!}/$filename')
-        .create(recursive: true)
-        .then((value) => filepath = value.path);
-  }
-  await Fluttertoast.showToast(
-    msg: 'Download Started!',
-    toastLength: Toast.LENGTH_SHORT,
-    gravity: ToastGravity.BOTTOM,
-    backgroundColor: accent,
-    textColor: accent != const Color(0xFFFFFFFF) ? Colors.white : Colors.black,
-    fontSize: 14,
-  );
-  final audioStream = await getSongStream(song['ytid'].toString());
-  final File file = File(filepath);
-  final fileStream = file.openWrite();
-  await yt.videos.streamsClient.get(audioStream as StreamInfo).pipe(fileStream);
-  await fileStream.flush();
-  await fileStream.close();
+Future<void>? pause() => audioPlayer?.pause();
 
-  debugPrint('Done');
-  await Fluttertoast.showToast(
-    msg: 'Download Completed!',
-    toastLength: Toast.LENGTH_SHORT,
-    gravity: ToastGravity.BOTTOM,
-    backgroundColor: accent,
-    textColor: accent != const Color(0xFFFFFFFF) ? Colors.white : Colors.black,
-    fontSize: 14,
-  );
+Future<void>? stop() => audioPlayer?.stop();
+
+Future playNext() async {
+  if (id + 1 <= activePlaylist.length) {
+    id = id + 1;
+    await playSong(activePlaylist[id]);
+  }
+}
+
+Future playPrevious() async {
+  if (id - 1 >= 0) {
+    id = id - 1;
+    await playSong(activePlaylist[id]);
+  }
 }
 
 Future<void> playSong(Map song) async {
-  if (song['ytid'].length == 0) {
-    await MyAudioHandler()
-        .addQueueItem(mapToMediaItem(song, song['songUrl'].toString()));
-  } else {
-    final songUrl = await getSongUrl(song['ytid']);
-    await MyAudioHandler().addQueueItem(mapToMediaItem(song, songUrl));
-  }
+  await setSongDetails(song);
   await play();
 }
 
@@ -150,39 +78,6 @@ Future changeLoopStatus() async {
   } else {
     repeatNotifier.value = false;
     await audioPlayer?.setLoopMode(LoopMode.off);
-  }
-}
-
-Future enableBooster() async {
-  await _loudnessEnhancer.setEnabled(true);
-  await _loudnessEnhancer.setTargetGain(1);
-}
-
-Future<void>? play() => _audioHandler.play();
-
-Future<void>? pause() => _audioHandler.pause();
-
-Future<void>? stop() => _audioHandler.stop();
-
-Future playNext() async {
-  if (activePlaylist.isEmpty) {
-    await _audioHandler.skipToNext();
-  } else {
-    if (id + 1 <= activePlaylist.length) {
-      await playSong(activePlaylist[id + 1]);
-      id = id + 1;
-    }
-  }
-}
-
-Future playPrevious() async {
-  if (activePlaylist.isEmpty) {
-    await _audioHandler.skipToPrevious();
-  } else {
-    if (id - 1 >= 0) {
-      await playSong(activePlaylist[id - 1]);
-      id = id - 1;
-    }
   }
 }
 

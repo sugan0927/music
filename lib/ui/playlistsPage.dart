@@ -52,7 +52,7 @@ class _PlaylistsPageState extends State<PlaylistsPage> {
           children: <Widget>[
             Padding(
               padding: const EdgeInsets.only(
-                  top: 12, bottom: 20, left: 12, right: 12),
+                  top: 12, bottom: 20, right: 70, left: 70),
               child: TextField(
                 onSubmitted: (String value) {
                   search();
@@ -139,8 +139,8 @@ class _PlaylistsPageState extends State<PlaylistsPage> {
                           physics: const ScrollPhysics(),
                           itemCount: (data as dynamic).data.length as int,
                           padding: const EdgeInsets.only(
-                            left: 16,
-                            right: 16,
+                            left: 60,
+                            right: 60,
                             top: 16,
                             bottom: 20,
                           ),
@@ -178,8 +178,8 @@ class _PlaylistsPageState extends State<PlaylistsPage> {
                           physics: const ScrollPhysics(),
                           itemCount: (data as dynamic).data.length as int,
                           padding: const EdgeInsets.only(
-                            left: 16,
-                            right: 16,
+                            left: 60,
+                            right: 60,
                             top: 16,
                             bottom: 20,
                           ),

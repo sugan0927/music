@@ -6,9 +6,10 @@ import 'package:musify/services/audio_manager.dart';
 import 'package:musify/style/appColors.dart';
 
 class SongBar extends StatelessWidget {
-  SongBar(this.song, {Key? key}) : super(key: key);
+  SongBar(this.song, this.moveBackAfterPlay, {Key? key}) : super(key: key);
 
   late final dynamic song;
+  late final bool moveBackAfterPlay;
   late final songLikeStatus =
       ValueNotifier<bool>(isSongAlreadyLiked(song['ytid']));
 
@@ -24,9 +25,12 @@ class SongBar extends StatelessWidget {
             activePlaylist = [];
             id = 0;
           }
+          if (moveBackAfterPlay) {
+            Navigator.pop(context);
+          }
         },
         splashColor: accent,
-        hoverColor: accent,
+        hoverColor: Colors.transparent,
         focusColor: accent,
         highlightColor: accent,
         child: Row(
@@ -109,11 +113,6 @@ class SongBar extends StatelessWidget {
                       );
                     }
                   },
-                ),
-                IconButton(
-                  color: accent,
-                  icon: const Icon(MdiIcons.downloadOutline),
-                  onPressed: () => downloadSong(song),
                 ),
               ],
             ),

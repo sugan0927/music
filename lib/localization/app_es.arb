@@ -3,9 +3,6 @@
   "accentChangeMsg": "Se ha cambiado el color del acento",
   "accentColor": "Acentuar el color",
   "add": "Agregar",
-  "appUpdateAvailableAndDownloading": "La actualización de la aplicación está disponible y se está descargando",
-  "appUpdateIsAvailable": "La actualización de la aplicación está disponible",
-  "appUpdateIsNotAvailable": "La actualización de la aplicación no está disponible",
   "audioFileType": "Extensión de archivo de audio",
   "audioFileTypeMsg": "Se ha cambiado el tipo de archivo de audio",
   "backupUserData": "Copia de seguridad de la información del usuario",
@@ -13,10 +10,8 @@
   "cacheMsg": "Caché despejado",
   "clearCache": "Limpiar cache",
   "clearSearchHistory": "Limpiar historial de búsqueda",
-  "downloadAppUpdate": "Descargar actualización de la aplicación",
   "language": "Idioma",
   "languageMsg": "Se ha cambiado el idioma",
-  "localSongs": "Canciones locales",
   "lyrics": "Letra",
   "lyricsNotAvailable": "No hay letras disponibles ;(",
   "nowPlaying": "Jugando ahora",
@@ -33,7 +28,6 @@
   "suggestedPlaylists": "Listas de reproducción sugeridas",
   "userLikedSongs": "Al usuario le gustaron las canciones",
   "userPlaylists": "Listas de reproducción de usuario",
-  "yourDownloadedSongsHere": "Tus canciones descargadas aquí",
   "yourFavoriteSongsHere": "Tus canciones favoritas aquí",
   "youtubePlaylistID": "lista de reproducción de youtube ID"
 }

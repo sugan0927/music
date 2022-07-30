@@ -3,7 +3,6 @@ import 'dart:math';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:musify/API/musify.dart';
 import 'package:musify/customWidgets/song_bar.dart';
@@ -74,6 +73,7 @@ class _PlaylistPageState extends State<PlaylistPage> {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -100,8 +100,8 @@ class _PlaylistPageState extends State<PlaylistPage> {
                 children: [
                   Container(
                     margin: const EdgeInsets.only(left: 10, right: 26),
-                    height: 250,
-                    width: 250,
+                    height: size.width / 4,
+                    width: size.width / 4,
                     child: Card(
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8),
@@ -120,8 +120,8 @@ class _PlaylistPageState extends State<PlaylistPage> {
                               ),
                             )
                           : Container(
-                              width: 200,
-                              height: 200,
+                              width: size.width / 4,
+                              height: size.width / 4,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
                                 gradient: const LinearGradient(
@@ -178,23 +178,14 @@ class _PlaylistPageState extends State<PlaylistPage> {
                           setActivePlaylist(
                             widget.playlist['list'] as List,
                           ),
-                          Fluttertoast.showToast(
-                            msg: AppLocalizations.of(context)!.queueInitText,
-                            toastLength: Toast.LENGTH_LONG,
-                            gravity: ToastGravity.BOTTOM,
-                            backgroundColor: accent,
-                            textColor: accent != const Color(0xFFFFFFFF)
-                                ? Colors.white
-                                : Colors.black,
-                          ),
                           Navigator.pop(context, false)
                         },
                         style: ElevatedButton.styleFrom(
-                          primary: accent,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                        ),
+                            primary: accent,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            minimumSize: const Size(50, 50)),
                         child: Text(
                           AppLocalizations.of(context)!.playAll.toUpperCase(),
                           style: TextStyle(
@@ -224,8 +215,12 @@ class _PlaylistPageState extends State<PlaylistPage> {
                           return const Spinner();
                         }
                         return Padding(
-                          padding: const EdgeInsets.only(top: 5, bottom: 5),
-                          child: SongBar(_songsList[index]),
+                          padding: const EdgeInsets.only(
+                              top: 5, bottom: 5, left: 80, right: 80),
+                          child: SongBar(
+                            _songsList[index],
+                            true,
+                          ),
                         );
                       },
                     )

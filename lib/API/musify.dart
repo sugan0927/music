@@ -1,23 +1,16 @@
 import 'dart:convert';
 import 'dart:math';
 
-import 'package:audio_service/audio_service.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:hive/hive.dart';
 import 'package:musify/helper/formatter.dart';
-import 'package:musify/helper/mediaitem.dart';
-import 'package:musify/services/audio_handler.dart';
 import 'package:musify/services/audio_manager.dart';
 import 'package:musify/services/data_manager.dart';
-import 'package:musify/services/ext_storage.dart';
-import 'package:on_audio_query/on_audio_query.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:youtube_explode_dart/youtube_explode_dart.dart';
 
 final yt = YoutubeExplode();
-final OnAudioQuery _audioQuery = OnAudioQuery();
 
 List ytplaylists = [];
 List searchedList = [];
@@ -26,7 +19,15 @@ List userPlaylists = Hive.box('user').get('playlists', defaultValue: []);
 List userLikedSongsList = Hive.box('user').get('likedSongs', defaultValue: []);
 List suggestedPlaylists = [];
 List activePlaylist = [];
-List<SongModel> localSongs = [];
+
+ValueNotifier<String> kUrl = ValueNotifier('');
+ValueNotifier<String> image = ValueNotifier('');
+ValueNotifier<String> highResImage = ValueNotifier('');
+ValueNotifier<String> title = ValueNotifier('');
+String album = '';
+ValueNotifier<String> artist = ValueNotifier('');
+String ytid = '';
+dynamic activeSong;
 
 final lyrics = ValueNotifier<String>('null');
 String _lastLyricsUrl = '';
@@ -213,21 +214,29 @@ Future getSongsFromPlaylist(dynamic playlistid) async {
 }
 
 Future<void> setActivePlaylist(List plist) async {
-  if (plist is List<SongModel>) {
-    activePlaylist = [];
-    id = 0;
-    final List<MediaItem> activeTempPlaylist = [];
-    for (final song in plist) {
-      activeTempPlaylist.add(songModelToMediaItem(song, song.data));
-    }
-    await MyAudioHandler().addQueueItems(activeTempPlaylist);
+  activePlaylist = plist;
+  id = 0;
+  await playSong(activePlaylist[id]);
+}
 
-    await play();
-  } else {
-    activePlaylist = plist;
-    id = 0;
-    await playSong(activePlaylist[id]);
+Future setSongDetails(song) async {
+  id = song['id'];
+  title.value = song['title'];
+  image.value = song['image'];
+  highResImage.value = song['highResImage'];
+  album = song['album'] == null ? '' : song['album'];
+  ytid = song['ytid'].toString();
+  activeSong = song;
+
+  try {
+    artist.value = song['more_info']['singers'];
+  } catch (e) {
+    artist.value = '-';
   }
+
+  final audio = await getSongUrl(ytid);
+  await audioPlayer?.setUrl(audio);
+  kUrl.value = audio;
 }
 
 Future getPlaylistInfoForWidget(dynamic id) async {
@@ -269,22 +278,6 @@ Future getSongDetails(dynamic songIndex, dynamic songId) async {
     song.thumbnails.maxResUrl,
     song.title.split('-')[0],
   );
-}
-
-Future<List<SongModel>> getLocalSongs() async {
-  // DEFAULT:
-  // SongSortType.TITLE,
-  // OrderType.ASC_OR_SMALLER,
-  // UriType.EXTERNAL,
-  if (localSongs.isEmpty) {
-    if (await Permission.storage.request().isGranted) {
-      localSongs = await _audioQuery.querySongs(uriType: UriType.EXTERNAL);
-      localSongs.addAll(await _audioQuery.querySongs(
-          path: await ExtStorageProvider.getExtStorage(dirName: 'Musify')));
-    }
-  }
-
-  return localSongs;
 }
 
 Future getSongLyrics(String artist, String title) async {

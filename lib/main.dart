@@ -1,21 +1,11 @@
-import 'package:audio_service/audio_service.dart';
-import 'package:audio_session/audio_session.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:get_it/get_it.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:musify/API/musify.dart';
 import 'package:musify/helper/material_color_creator.dart';
-import 'package:musify/helper/version.dart';
-import 'package:musify/services/audio_handler.dart';
-import 'package:musify/services/audio_manager.dart';
 import 'package:musify/style/appColors.dart';
 import 'package:musify/ui/rootPage.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-
-GetIt getIt = GetIt.instance;
 
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -53,7 +43,6 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    getLocalSongs();
     final Map<String, String> codes = {
       'English': 'en',
       'Georgian': 'ka',
@@ -145,43 +134,14 @@ class _MyAppState extends State<MyApp> {
   }
 }
 
+late String version;
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
   await Hive.openBox('settings');
   await Hive.openBox('user');
-  await FlutterDownloader.initialize(
-    debug:
-        true, // optional: set to false to disable printing logs to console (default: true)
-    ignoreSsl:
-        true // option: set to false to disable working with http links (default: false)
-    ,
-  );
-  FlutterDownloader.registerCallback(TestClass.callback);
   final PackageInfo packageInfo = await PackageInfo.fromPlatform();
   version = packageInfo.version;
-  await enableBooster();
-  await initialisation();
   runApp(const MyApp());
-}
-
-Future<void> initialisation() async {
-  final session = await AudioSession.instance;
-  await session.configure(const AudioSessionConfiguration.music());
-  final AudioHandler audioHandler = await AudioService.init(
-    builder: MyAudioHandler.new,
-    config: const AudioServiceConfig(
-      androidNotificationChannelId: 'com.gokadzev.musify',
-      androidNotificationChannelName: 'Musify',
-      androidNotificationOngoing: true,
-      androidNotificationIcon: 'mipmap/launcher_icon',
-      androidShowNotificationBadge: true,
-    ),
-  );
-  getIt.registerSingleton<AudioHandler>(audioHandler);
-}
-
-// ignore: avoid_classes_with_only_static_members
-class TestClass {
-  static void callback(String id, DownloadTaskStatus status, int progress) {}
 }

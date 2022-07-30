@@ -3,9 +3,6 @@
   "accentChangeMsg": "Колір акценту змінено",
   "accentColor": "Акцентний колір",
   "add": "додати",
-  "appUpdateAvailableAndDownloading": "Оновлення програми доступне і завантажується",
-  "appUpdateIsAvailable": "Доступне оновлення програми",
-  "appUpdateIsNotAvailable": "Оновлення програми недоступне",
   "audioFileType": "Розширення аудіофайлу",
   "audioFileTypeMsg": "Тип аудіофайлу змінено",
   "backupUserData": "Резервне копіювання даних користувача",
@@ -13,10 +10,8 @@
   "cacheMsg": "Кеш очищений",
   "clearCache": "Очистити кеш",
   "clearSearchHistory": "Очистити історію пошуку",
-  "downloadAppUpdate": "Завантажити оновлення програми",
   "language": "Мову",
   "languageMsg": "Мова була змінена",
-  "localSongs": "Місцеві пісні",
   "lyrics": "лірика",
   "lyricsNotAvailable": "Немає текстів ;(",
   "nowPlaying": "Зараз грає",
@@ -33,7 +28,6 @@
   "suggestedPlaylists": "Пропоновані списки відтворення",
   "userLikedSongs": "Пісні сподобалися користувачеві",
   "userPlaylists": "Списки відтворення користувачів",
-  "yourDownloadedSongsHere": "Ваші завантажені пісні тут",
   "yourFavoriteSongsHere": "Ваші улюблені пісні тут",
   "youtubePlaylistID": "Ідентифікатор списку відтворення YouTube"
 }

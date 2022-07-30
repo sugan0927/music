@@ -27,31 +27,23 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
-  audio_service: ^0.18.7
-  audio_session: ^0.1.10
   cached_network_image: ^3.2.1
   flutter:
     sdk: flutter
   flutter_cache_manager: ^3.3.0
-  flutter_downloader: ^1.8.1
   flutter_localizations: 
     sdk: flutter
-  fluttertoast: ^8.0.9
-  get_it: ^7.2.0
   hive: ^2.2.3
   hive_flutter: ^1.1.0
   intl: ^0.17.0 
   just_audio: ^0.9.28
+  just_audio_mpv: ^0.1.4
+  # just_audio_windows: ^0.1.0
   material_design_icons_flutter: ^5.0.6996
-  on_audio_query: ^2.6.1
   package_info_plus: ^1.4.3
-  path_provider: ^2.0.11
-  permission_handler: ^10.0.0
   youtube_explode_dart: ^1.12.0
 
 dev_dependencies:
-  flutter_launcher_icons: ^0.9.3
-  flutter_native_splash: ^2.2.6
   flutter_test:
     sdk: flutter
 

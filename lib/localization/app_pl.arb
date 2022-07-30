@@ -3,9 +3,6 @@
   "accentChangeMsg": "Zmieniono kolor akcentu",
   "accentColor": "Kolor akcentu",
   "add": "Dodaj",
-  "appUpdateAvailableAndDownloading": "Aktualizacja aplikacji jest dostępna i pobierana",
-  "appUpdateIsAvailable": "Aktualizacja aplikacji jest dostępna",
-  "appUpdateIsNotAvailable": "Aktualizacja aplikacji nie jest dostępna",
   "audioFileType": "Rozszerzenie pliku audio",
   "audioFileTypeMsg": "Typ pliku audio został zmieniony",
   "backupUserData": "Kopia zapasowa danych użytkownika",
@@ -13,10 +10,8 @@
   "cacheMsg": "Pamięć wyczyszczona",
   "clearCache": "Wyczyść pamięć podręczną",
   "clearSearchHistory": "Wyczyść historię wyszukiwania",
-  "downloadAppUpdate": "Pobierz aktualizację aplikacji",
   "language": "Język",
   "languageMsg": "Język został zmieniony",
-  "localSongs": "Piosenki lokalne",
   "lyrics": "teksty",
   "lyricsNotAvailable": "Brak dostępnych tekstów ;(",
   "nowPlaying": "Teraz gra",
@@ -33,7 +28,6 @@
   "suggestedPlaylists": "Sugerowane listy odtwarzania",
   "userLikedSongs": "Utwory lubiane przez użytkowników",
   "userPlaylists": "Playlisty użytkownika",
-  "yourDownloadedSongsHere": "Twoje pobrane utwory tutaj",
   "yourFavoriteSongsHere": "Twoje ulubione piosenki tutaj",
   "youtubePlaylistID": "Identyfikator playlisty YouTube"
 }
