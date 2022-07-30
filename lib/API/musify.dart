@@ -28,6 +28,7 @@ String album = '';
 ValueNotifier<String> artist = ValueNotifier('');
 String ytid = '';
 dynamic activeSong;
+final ValueNotifier<bool> songLikeStatus = ValueNotifier<bool>(false);
 
 final lyrics = ValueNotifier<String>('null');
 String _lastLyricsUrl = '';
@@ -227,6 +228,7 @@ Future setSongDetails(song) async {
   album = song['album'] == null ? '' : song['album'];
   ytid = song['ytid'].toString();
   activeSong = song;
+  songLikeStatus.value = isSongAlreadyLiked(ytid);
 
   try {
     artist.value = song['more_info']['singers'];

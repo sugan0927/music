@@ -225,6 +225,30 @@ class AppState extends State<Musify> {
                 ),
                 const Spacer(),
                 ValueListenableBuilder<bool>(
+                  valueListenable: songLikeStatus,
+                  builder: (_, value, __) {
+                    if (value == true) {
+                      return IconButton(
+                        color: accent,
+                        icon: const Icon(MdiIcons.star),
+                        onPressed: () => {
+                          removeUserLikedSong(ytid),
+                          songLikeStatus.value = false
+                        },
+                      );
+                    } else {
+                      return IconButton(
+                        color: Colors.white,
+                        icon: const Icon(MdiIcons.starOutline),
+                        onPressed: () => {
+                          addUserLikedSong(ytid),
+                          songLikeStatus.value = true
+                        },
+                      );
+                    }
+                  },
+                ),
+                ValueListenableBuilder<bool>(
                   valueListenable: shuffleNotifier,
                   builder: (_, value, __) {
                     return IconButton(
