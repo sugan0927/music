@@ -23,7 +23,7 @@ jobs:
         uses: thedoctor0/zip-release@master
         with:
           type: 'zip'
-          filename: Musify-${{github.ref_name}}-linux.zip
+          filename: Musify-linux.zip
           directory: build/linux/x64/release/bundle
       - name: Linux Release
         uses: actions/upload-artifact@v3
