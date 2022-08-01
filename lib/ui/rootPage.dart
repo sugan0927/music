@@ -25,7 +25,12 @@ class AppState extends State<Musify> {
   @override
   void initState() {
     super.initState();
-    initAudioPlayer();
+    audioPlayer!.processingStateStream.listen((state) async {
+      if (state == ProcessingState.completed) {
+        await stop();
+        await audioPlayer!.seek(Duration.zero, index: 0);
+      }
+    });
     positionSubscription = audioPlayer?.positionStream
         .listen((p) => {if (mounted) setState(() => position = p)});
     audioPlayer?.durationStream.listen(
@@ -39,34 +44,6 @@ class AppState extends State<Musify> {
   void dispose() {
     audioPlayer?.dispose();
     super.dispose();
-  }
-
-  void initAudioPlayer() {
-    audioPlayerStateSubscription =
-        audioPlayer?.playerStateStream.listen((playerState) async {
-      final isPlaying = playerState.playing;
-      final processingState = playerState.processingState;
-      if (processingState == ProcessingState.loading ||
-          processingState == ProcessingState.buffering) {
-        buttonNotifier.value = MPlayerState.loading;
-      } else if (!isPlaying) {
-        buttonNotifier.value = MPlayerState.paused;
-      } else if (processingState != ProcessingState.completed) {
-        buttonNotifier.value = MPlayerState.playing;
-      } else {
-        await stop();
-        await audioPlayer!.seek(Duration.zero);
-        buttonNotifier.value = MPlayerState.stopped;
-        if (hasNext) {
-          if (activePlaylist.isEmpty && playNextSongAutomatically.value) {
-            await playSong(await getRandomSong());
-          } else {
-            await playSong(activePlaylist[id + 1]);
-            id = id + 1;
-          }
-        }
-      }
-    });
   }
 
   @override
@@ -325,17 +302,20 @@ class AppState extends State<Musify> {
                       ),
                       onPressed: playPrevious,
                     ),
-                    ValueListenableBuilder<MPlayerState>(
-                      valueListenable: buttonNotifier,
-                      builder: (_, value, __) {
+                    StreamBuilder<PlayerState>(
+                      stream: audioPlayer!.playerStateStream,
+                      builder: (context, snapshot) {
+                        final playerState = snapshot.data;
+                        final playing = playerState?.playing;
+
                         return IconButton(
-                          icon: buttonNotifier.value == MPlayerState.playing
+                          icon: playing == true
                               ? const Icon(MdiIcons.pause)
                               : const Icon(MdiIcons.playOutline),
                           color: accent,
                           splashColor: Colors.transparent,
                           onPressed: () {
-                            if (buttonNotifier.value == MPlayerState.playing) {
+                            if (playing == true) {
                               audioPlayer?.pause();
                             } else {
                               audioPlayer?.play();
